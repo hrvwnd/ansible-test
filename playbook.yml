@@ -1,0 +1,13 @@
+- hosts: docker-swarm-master
+  tasks:
+  - name: "Ping {{ inventory_hostname }}"
+    ping:
+
+  tasks:
+  - name: clone repo
+    git:
+      repo: "https://github.com/Matt25969/SelfReflection.git"
+      dest: ~/git-test
+    
+
+
