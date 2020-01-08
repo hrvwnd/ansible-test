@@ -2,8 +2,24 @@
 docker-swarm-master
 docker-swarm-ansible-worker
 
+[jenkins]
+jenkins-swarm
+
+[swarm-master]
+docker-swarm-master
+
 [test:vars]
 ansible_user=hrvwnd
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ansible_ssh_private_key_file=~/.ssh/id_rsa
 
+
+[jenkins:vars]
+ansible_user=hrvwnd
+ansible_ssh_private_key_file=~/.ssh/google_compute_engine
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[jenkins:vars]
+ansible_user=hrvwnd
+ansible_ssh_private_key_file=~/.ssh/google_compute_engine
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'

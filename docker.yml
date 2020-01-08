@@ -8,7 +8,7 @@
       state: latest
       update_cache: true
       force_apt_get: true
-  - name: install packages for apt add respo over https
+  - name: install packages for apt add repo over https
     become: true
     apt:
       name: "{{ packagesdep }}"

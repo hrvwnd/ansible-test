@@ -1,0 +1,22 @@
+---
+ - name: Get keys from host machine
+    hosts: host # CHANGE ME TO BE ACCURATE
+    become: true
+    tasks:
+     - name: (ensure) make .ssh directory
+       file:
+         path: "/home/hrvwnd/.ssh"
+         state: directory
+     - name: (ensure) create empty authorized keys file
+       file:
+         path: "/home/jenkins/.ssh/authorized_keys"
+         state: touch
+     - name: (ensure) add a public key
+       authorized_key:
+         user: "jenkins"
+         key: app_keys/id_rsa.pub
+         state: present
+     
+ - name: Add keys to servers
+   hosts: jenkins  
+
