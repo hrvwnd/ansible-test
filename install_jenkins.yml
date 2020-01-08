@@ -1,0 +1,7 @@
+---
+- name: install jenkins
+  hosts: test 
+  tasks:
+  - shell: |
+      curl https://courseware.qa-portal.co.uk/topics/jenkins/modules/introduction/resources/jenkins-install.sh | sudo bash
+
