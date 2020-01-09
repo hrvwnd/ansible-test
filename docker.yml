@@ -44,3 +44,9 @@
     apt:
       name: "docker-ce"
       state: latest
+  - name: "add jenkins user to docker group"
+    user:
+     name: jenkins
+     comment: Jenkins User
+     group: docker
+     append: true
