@@ -1,22 +1,37 @@
 ---
- - name: Get keys from host machine
-    hosts: host # CHANGE ME TO BE ACCURATE
-    become: true
-    tasks:
-     - name: (ensure) make .ssh directory
-       file:
-         path: "/home/hrvwnd/.ssh"
-         state: directory
-     - name: (ensure) create empty authorized keys file
-       file:
-         path: "/home/jenkins/.ssh/authorized_keys"
-         state: touch
-     - name: (ensure) add a public key
-       authorized_key:
-         user: "jenkins"
-         key: app_keys/id_rsa.pub
-         state: present
      
- - name: Add keys to servers
-   hosts: jenkins  
+ - name: "Copy private keys to servers"
+   hosts: jenkins
+   become: true
+   tasks: 
+   - name: "ssh folder"
+     file:
+       path: /home/jenkins/.ssh
+       state: directory
+       mode: "0700"
+       owner: jenkins
+       group: jenkins
+   - name: "Install private key"
+     copy: 
+       src: ~/.ssh/id_rsa
+       dest: /home/jenkins/.ssh/id_rsa
+       owner: jenkins
+       group: jenkins
+       mode: u=rw,g=,o=
 
+   - name: "Install public key"
+     copy:
+       src: ~/.ssh/id_rsa.pub
+       dest: /home/jenkins/.ssh/id_rsa.pub
+       owner: jenkins
+       group: jenkins
+       mode: u=rw,g=,o=
+
+
+#   - name: "Installing authorized key"
+#     authorized_key: 
+#       user: jenkins
+#       state: present
+#       key: "{{ lookup('file', '/home/jenkins.ssh/id_rsa.pub') }}"
+#       path: "/home/jenkins/.ssh/authorized_keys"
+#       manage_dir: False
